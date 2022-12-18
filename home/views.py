@@ -16,5 +16,5 @@ def portfolio(request):
 def price(request):
     return render(request,'price.html')
 
-def service(request):
-    return render(request,'service.html')
+def services(request):
+    return render(request,'services.html')
