@@ -2,12 +2,17 @@ from django.shortcuts import render
 from .models import *
 # Create your views here.
 def home(request):
-    return render(request,'index.html')
+    views = {}
+    views['feedback'] = Feedback.objects.all()
+    views['services'] = Service.objects.all()
+    return render(request,'index.html',views)
 
 def about(request):
     return render(request,'about.html')
 
 def contact(request):
+    views= {}
+    views['infos'] = Information.objects.all()
     if request.method == 'POST':
         name = request.POST['name']
         email = request.POST['email']
@@ -20,9 +25,9 @@ def contact(request):
             message = message,
         )
         data.save()
-        message = {'mess': 'The message is Submitted!'}
-        return render(request, 'contact.html', message)
-    return render(request,'contact.html')
+        views['mess'] = 'The message is Submitted!'
+        return render(request, 'contact.html', views)
+    return render(request, 'contact.html', views)
 
 def portfolio(request):
     return render(request,'portfolio.html')
